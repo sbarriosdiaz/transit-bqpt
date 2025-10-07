@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BidQuoteDto>
+
+<div class="feed-activity-list">
+    @foreach (var p in Model)
+    {
+
+    <div class="feed-element mb-2">
+        <strong>
+            <a href="@Url.Action("BidQuotes", "Bids", new { Id = p.DomainKey })">@p.AssetWorksBidQuoteId</a>
+        </strong>
+        <div>
+            <small>
+                <strong>
+                    Total Parts:
+                </strong> @(p.PartCount)
+            </small>
+            <small>
+                <strong>
+                    | Total Bids:
+                </strong> @(p.VendorBidCount)
+            </small>
+        </div>
+        <div>
+            <small>
+                <strong>
+                    Status:
+                </strong> @(p.Status)
+            </small>
+        </div>
+        <div>
+            @if (p.Status.Equals("New"))
+                {
+            <small>
+                <strong>Imported:</strong> @($"{p.BidImportedTime:g}")
+            </small>
+                }
+            @if (p.Status.Equals("Open"))
+                {
+            <small>
+                <strong>Start:</strong> @($"{p.BidStartTime:g}") - <strong> End:</strong> @($"{p.BidScheduledEndTime:g}")
+            </small>
+                }
+            @if (p.Status.Equals("Expired"))
+                {
+            <small>
+                <strong>Expired:</strong> @($"{p.BidScheduledEndTime:g}")
+            </small>
+                }
+            @if (p.Status.Equals("Ended"))
+                {
+            <small>
+                <strong>Ended:</strong> @($"{p.BidEndTime:g}")
+            </small>
+                }
+            @if (p.Status.Equals("Closed"))
+                {
+            <small>
+                <strong>Closed:</strong> @($"{p.BidClosedTime:g}")
+            </small>
+                }
+        </div>
+    </div>
+
+    }
+</div>

@@ -1,0 +1,330 @@
+﻿@model BidQuoteResponseDto
+
+@{
+    ViewBag.Title = "Bid Quote";
+    ViewBag.PageTitle = Html.Raw($"<span class=\"fas fa-file-alt mr-1\"></span>Bid Quote: {Model.BidQuote.AssetWorksBidQuoteId}");
+    var row = 0;
+    var bidQuote = Model.BidQuote;
+    var vendors = Model.SystemVendors;
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/dtjs")
+<script>
+        $(function () {
+            $('#btn-partnavigator').click(function () {
+                var partNumber = $('#txt-partnumber').val().toLowerCase();
+                var partNumberTag = $(`#${partNumber}`);
+                $('html,body').animate({ scrollTop: partNumberTag.offset().top }, 'slow');
+                $('#txt-partnumber').val('');
+                $(`#part_${partNumber}`).click();
+            });
+        })
+         $(document).ready(function () {
+     // Show server-side TempData notifications
+     @if (TempData["Success"] != null)
+     {
+         <text>
+     helperApp.ShowSuccessNotification("@TempData["Success"].ToString()");
+         </text>
+     }
+
+     @if (TempData["Error"] != null)
+     {
+         <text>
+     helperApp.ShowErrorNotification("@TempData["Error"]");
+         </text>
+     }
+ });
+</script>
+}
+
+@section styles{
+    @Styles.Render("~/bundles/dtstyles")
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <a role="button" href="@Url.Action("Index","Bids")" class="btn btn-default applicationLinkBtn" type="button" data-toggle="tooltip" data-placement="top" title="Return to All Bids">
+            <span class="fas fa-reply fa-fw fa-3x"></span>
+            <br />
+            <h4>Back to Bids</h4>
+        </a>
+    </div>
+</div>
+
+<div class="ibox1">
+    <div class="ibox-title">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="mb-0" title="BQId @(bidQuote.Id)">
+                    @(bidQuote.AssetWorksBidQuoteId)
+                    <span class="badge badge-light bid-badges-small-black" title="@(bidQuote.StatusDisplayDescription)">
+                        @(bidQuote.StatusDisplayName)
+                    </span>
+                </h2>
+                <h5 class="font-normal" aria-hidden="true">
+                    @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.New)))
+                    {
+                        <strong>Imported:</strong> @($"{bidQuote.BidImportedTime:g}")
+                    }
+                    @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Open)) || bidQuote.Status.Equals(nameof(BidQuoteStatus.Expired)))
+                    {
+                        <strong>Start:</strong> @($"{bidQuote.BidStartTime:g}") <strong> | End:</strong> @($"{bidQuote.BidScheduledEndTime:g}")
+                    }
+                    @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)))
+                    {
+                        <strong>Ended:</strong> @($"{bidQuote.BidEndTime:g}")
+                    }
+                    @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+                    {
+                        <strong>Closed:</strong> @($"{bidQuote.BidClosedTime:g}")
+                    }
+                </h5>
+            </div>
+            <div class="col-md-6 float-right">
+                <div class="input-group float-right">
+                    <input id="txt-partnumber" type="text" class="form-control form-control-sm" placeholder="Navigate to Part Number..." aria-label="Navigate to Part Number..." aria-describedby="btn-partnavigator">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary btn-sm" type="button" id="btn-partnavigator">GO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ibox-content">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <span class="badge badge-primary bid-badges-small" title="Total Parts">Parts: @(bidQuote.PartCount)</span>
+            </div>
+            <div class="col-md-8 float-right">
+                <button id="js-btn-toggle" class="btn btn-secondary btn-sm float-right" type="button" onclick="bidApp.ToggleVendors(this.value)" value="1">
+                    Show Vendors
+                </button>
+
+                @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.New)))
+                {
+                    <button class="btn btn-danger btn-sm float-right mr-1" type="button" onclick="bidApp.OpenDeleteBidModal(`@bidQuote.AssetWorksBidQuoteId`)">
+                        Delete Bid
+                    </button>
+                    <button class="btn btn-primary btn-sm float-right mr-1" type="button" onclick="bidApp.OpenStartBidModal(`@bidQuote.DomainKey`)">
+                        Start Bid
+                    </button>
+                }
+
+                @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Open)))
+                {
+                    <button class="btn btn-primary btn-sm float-right mr-1" type="button" onclick="bidApp.OpenUpdateBidModal(`@bidQuote.DomainKey`)">
+                        Edit End Date
+                    </button>
+                    <button class="btn btn-danger btn-sm float-right mr-1" type="button" onclick="bidApp.OpenEndBidModal(`@bidQuote.AssetWorksBidQuoteId`)">
+                        End Bid
+                    </button>
+                }
+
+                @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Expired)))
+                {
+                    <button class="btn btn-danger btn-sm float-right mr-1" type="button" onclick="bidApp.OpenEndBidModal(`@bidQuote.AssetWorksBidQuoteId`)">
+                        End Bid
+                    </button>
+                }
+
+                @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)) && bidQuote.DisplayOrder == 0)
+                {
+                    <button id="btn-generate-xml"
+                            class="btn btn-danger btn-sm float-right mr-1"
+                            type="button"
+                            onclick="bidApp.OpenModalGeneratePO(`@bidQuote.DomainKey`)">
+                        Generate PO
+                    </button>
+
+                }
+                <button class="btn btn-danger btn-sm float-right mr-1" type="button" onclick="bidApp.OpenCloseBidModal(`@bidQuote.AssetWorksBidQuoteId`)">
+                    Close Bid
+                </button>
+
+            </div>
+        </div>
+
+        <table class="table" aria-label="SystemBids" id="dt-bids">
+            <thead>
+                <tr>
+                    <th scope="col" class="w-auto text-center">
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Vendors">
+                        Vendors
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-table-cell d-sm-none d-md-none d-lg-none d-xl-none d-print-none" title="Vendors">
+                        Vens
+                    </th>
+                    @if (!bidQuote.Status.Equals(nameof(BidQuoteStatus.New)))
+                    {
+                        <th scope="col" class="align-bottom w-auto text-center" title="Bids Received">
+                            Bids
+                        </th>
+                    }
+                    <th scope="col" class="align-bottom w-auto text-center text-nowrap" title="Asset Works Part Number">
+                        Part-No
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-none" title="Asset Works Part Suffix">
+                        Sfx
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-none d-none d-lg-none d-xl-table-cell d-print-none" title="Asset Works Part Description">
+                        Description
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works Last Price">
+                        Price
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center" title="Asset Works Part Commodity Code">
+                        CC
+                    </th>
+
+                    @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)) || bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+                    {
+                        <th scope="col" class="w-auto text-center align-bottom" title="Final Purchase Order Quantity">
+                            PO-Qty
+                        </th>
+                    }
+                    @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)) || bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+                    {
+                        <th scope="col" class="w-auto text-center d-none d-sm-none d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Asset Works Requested Quantity">
+                            AW-Qty
+                        </th>
+                    }
+                    @if (!bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)) && !bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+                    {
+                        <th scope="col" class="w-auto text-center" title="Asset Works Requested Quantity">
+                            AW-QTY
+                        </th>
+                    }
+                    <th scope="col" class="w-auto text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works Work Orders">
+                        Work-Orders
+                    </th>
+                    <th scope="col" class="w-auto text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works On Hand">
+                        On-Hand
+                    </th>
+                    <th scope="col" class="w-auto text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works On Order">
+                        On-Order
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="align-text-bottom">
+                @foreach (var part in bidQuote.Parts)
+                {
+                    row++;
+                    var headingId = $"Vendor_Heading_{row}";
+                    var collapseId = $"Vendor_Collapse_{row}";
+                    var id = part.DomainKey;
+                    var systemVendors = vendors.Where(x => x.CommodityCodes.Split(',').Contains(part.AssetWorksPartCommodityCode)).ToList();
+
+                    <tr id="@(headingId)">
+                        <td class="align-middle text-center">@(row)</td>
+                        @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.New)))
+                        {
+                            <td>
+                                <button id="part_@part.AssetWorksPartNumber.ToLowerInvariant()" class="btn btn-primary btn-xs btn-width-30" type="button" data-toggle="collapse" data-target="#@(collapseId)" aria-expanded="true" aria-controls="@(collapseId)">
+                                    @(systemVendors.Count())
+                                </button>
+                            </td>
+                        }
+                        @if (!bidQuote.Status.Equals(nameof(BidQuoteStatus.New)))
+                        {
+                            <td>
+                                <button id="part_@part.AssetWorksPartNumber.ToLowerInvariant()" class="btn btn-primary btn-xs btn-width-30" type="button" data-toggle="collapse" data-target="#@(collapseId)" aria-expanded="true" aria-controls="@(collapseId)">
+                                    @part.VendorInPartsCount
+                                </button>
+                            </td>
+                            if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)) || bidQuote.Status.Equals(nameof(BidQuoteStatus.Expired)) || bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+                            {
+                                <td class="@((part.VendorBids.Any() && part?.VendorBids.Where(vb => vb.IsSelected.Equals(true)).Count() == 0) ? "align-middle text-center text-danger font-bold" : "align-middle text-center")">
+                                    @part.VendorBidsCount
+                                </td>
+                            }
+                            if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Open)))
+                            {
+                                <td class="align-middle text-center">
+                                    @if (part.VendorBids.Any())
+                                    {
+                                        <span class="badge badge-primary">
+                                            @part.VendorBidsCount
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @part.VendorBidsCount
+                                        </span>
+                                    }
+                                </td>
+                            }
+                        }
+                        <td class="align-middle text-center" title="BidQuotePartId @(part.Id)"><a id="@part.AssetWorksPartNumber.ToLowerInvariant()"></a>@(part.AssetWorksPartNumber)</td>
+                        <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell">@(part.AssetWorksPartSuffix)</td>
+                        <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell">@(part.AssetWorksPartDescription)</td>
+                        <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell">@string.Format("{0:C}", part.AssetWorksUnitPrice.ConvertToDecimal())</td>
+                        <td class="align-middle text-center">@(part.AssetWorksPartCommodityCode)</td>
+                        @if (bidQuote.Status.Equals("Ended"))
+                        {
+                            <td class="align-middle text-center p-1">
+                                @Html.EditorFor(m => part.PurchaseOrderQuantity, new { htmlAttributes = new { @id = @id, @class = "form-control form-control-xs w-75 text-center d-inline-block border-0", @min = 0, @max = 99999, @maxlength = "5", @required = "true", onchange = "bidApp.UpdatePOQuantity(this.id, this.value)" } })
+                            </td>
+                        }
+                        @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+                        {
+                            <td class="align-middle text-center">@(part.PurchaseOrderQuantity)</td>
+                        }
+                        @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)) || bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+                        {
+                            <td class="align-middle text-center d-none d-sm-none d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell">@(part.AssetWorksPartQuantityRequested)</td>
+                        }
+                        @if (!bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)) && !bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+                        {
+                            <td class="align-middle text-center">@(part.AssetWorksPartQuantityRequested)</td>
+                        }
+                        <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell">@(part.AssetWorksPartQuantityCommited)</td>
+                        <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell">@(part.AssetWorksPartQuantityOnHand)</td>
+                        <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell">@(part.AssetWorksPartQuantityOnOrder)</td>
+                    </tr>
+
+                    <tr>
+                        <td scope="row" colspan="14" class="p-0">
+                            <div id="@(collapseId)" class="collapse" aria-labelledby="@(headingId)" data-parent="#@(headingId)">
+                                @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.New)))
+                                {
+                                    @Html.Partial("_VendorsPartial", systemVendors, new ViewDataDictionary { { "Id", @row } })
+                                }
+                                @if (!bidQuote.Status.Equals(nameof(BidQuoteStatus.New)))
+                                {
+                                    @Html.Partial("_VendorBidsPartial", part)
+
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Generate XML Confirmation Modal -->
+<div class="modal fade" id="generatePoModal" tabindex="-1" role="dialog" aria-labelledby="generatePoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow-lg rounded">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="generatePoModalLabel">Generate XML File</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to generate the XML file for this Bid Quote?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="confirm-generate-po" class="btn btn-primary" onclick="bidApp.ConfirmGeneratePO()">Yes, Generate</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

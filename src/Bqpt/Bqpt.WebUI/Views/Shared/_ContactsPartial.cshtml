@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ContactDto>
+
+<table class="table" style="font-size:smaller" aria-label="VendorContacts">
+    <thead>
+        <tr>
+            <th scope="col" class="w-auto" title="Asset Works Vendor Name">
+                Vendor
+            </th>
+            <th scope="col" class="w-auto" title="Asset Works Contact Name">
+                Name
+            </th>
+            <th scope="col" class="w-auto d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works Contact Phone">
+                Phone
+            </th>
+            <th scope="col" class="w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Asset Works Contact Email">
+                Email
+            </th>
+        </tr>
+    </thead>
+    <tbody class="align-text-bottom">
+        @foreach (var c in Model.ToList())
+        {
+        <tr class="@(string.IsNullOrEmpty(c.AssetWorksContactEmail) ? "bg-gray-200": "bg-gray-50")">
+            <td>@(c.AssetWorksVendorName)</td>
+            <td class="@(string.IsNullOrEmpty(c.AssetWorksContactEmail) ? "text-info font-weight-bold": "") text-nowrap" title="VendorId @(c.Id)">@(c.AssetWorksContactName)</td>
+            <td class="d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell">@(c.AssetWorksContactPhone)</td>
+            <td class="d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(c.AssetWorksContactEmail)</td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Invoice Viewer";
+    ViewBag.PageTitle = Html.Raw("<span class=\"fa fa-edit mr-1\"></span>Invoice Viewer");
+}
+<div class="row">
+    <div class="col-md-3">
+        <div class="btn-group" role="group">
+            <button id="prev" class="btn btn-white btn-sm"><span class="fas fa-long-arrow-alt-left"></span></button>
+            <button id="next" class="btn btn-white btn-sm"><span class="fas fa-long-arrow-alt-right"></span></button>
+            <span class="btn btn-white btn-sm d-none d-sm-block">Page: </span>
+            <div class="input-group">
+                <input type="text" class="form-control" id="page_num">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-white  btn-sm" id="page_count"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center m-t-md">
+    <canvas id="the-canvas" class="pdfcanvas border-left-right border-top-bottom b-r-md" height="800" style="width:100%"></canvas>
+</div>
+<p>&nbsp;</p>
+
+@section scripts{
+    <script src="~/Content/template-support/pdfjs/pdf.js"></script>
+    <script id="script">
+            var url = '@ViewBag.Pdf';
+    </script>
+    <script src="~/Scripts/apps/viewerApp.js"></script>
+}

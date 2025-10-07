@@ -1,0 +1,19 @@
+﻿[
+  {
+    "outputFile": "Scripts/dist/helperApp.es5.js",
+    "inputFile": "Scripts/apps/helperApp.js"
+  },
+  {
+    "outputFile": "Scripts/dist/loginApp2.es5.js",
+    "inputFile": "Scripts/apps/loginApp2.js"
+  },
+  {
+    "outputFile": "Scripts/dist/vendor.es5.js",
+    "inputFile": "Scripts/apps/vendor.js"
+  },
+  {
+    "outputFile": "Scripts/dist/viewerApp.es5.js",
+    "inputFile": "Scripts/apps/viewerApp.js"
+  }
+  
+]

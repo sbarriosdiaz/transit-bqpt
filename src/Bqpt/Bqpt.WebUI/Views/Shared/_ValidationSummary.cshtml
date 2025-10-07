@@ -1,0 +1,12 @@
+﻿@model ModelStateDictionary
+
+@if (!Model.IsValid)
+{
+<div class="alert alert-danger" id="pnlGlobalError">
+
+    @foreach (var item in Model.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+    @item.ErrorMessage  <br />
+            }
+</div>
+}

@@ -1,0 +1,64 @@
+GRANT SELECT ON [dbo].[__MigrationHistory] TO transitbqp
+GRANT SELECT ON [dbo].[Attachment] TO transitbqp
+GRANT SELECT ON [dbo].[BidQuote] TO transitbqp
+GRANT SELECT ON [dbo].[BidQuoteNote] TO transitbqp
+GRANT SELECT ON [dbo].[BidQuotePart] TO transitbqp
+GRANT SELECT ON [dbo].[BidQuoteStatusHistory] TO transitbqp
+GRANT SELECT ON [dbo].[Contact] TO transitbqp
+GRANT SELECT ON [dbo].[Vendor] TO transitbqp
+GRANT SELECT ON [dbo].[VendorBidQuoteAttachment] TO transitbqp
+GRANT SELECT ON [dbo].[VendorInPart] TO transitbqp
+GRANT SELECT ON [dbo].[VendorPartBid] TO transitbqp
+GRANT SELECT ON [dbo].[VendorPartBidHistory] TO transitbqp
+GRANT SELECT ON [dbo].[VendorPartBidSelectedHistory] TO transitbqp
+
+
+GRANT EXECUTE ON [dbo].[Attachment_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[Attachment_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[Attachment_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[BidQuote_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[BidQuote_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[BidQuote_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[BidQuoteNote_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[BidQuoteNote_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[BidQuoteNote_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[BidQuotePart_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[BidQuotePart_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[BidQuotePart_Update]  TO transitbqp
+
+
+GRANT EXECUTE ON [dbo].[BidQuoteStatusHistory_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[BidQuoteStatusHistory_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[BidQuoteStatusHistory_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[Contact_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[Contact_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[Contact_Update]  TO transitbqp
+
+
+GRANT EXECUTE ON [dbo].[Vendor_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[Vendor_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[Vendor_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[VendorBidQuoteAttachment_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorBidQuoteAttachment_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorBidQuoteAttachment_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[VendorInPart_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorInPart_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorInPart_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[VendorPartBid_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorPartBid_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorPartBid_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[VendorPartBidHistory_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorPartBidHistory_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorPartBidHistory_Update]  TO transitbqp
+
+GRANT EXECUTE ON [dbo].[VendorPartBidSelectedHistory_Delete]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorPartBidSelectedHistory_Insert]  TO transitbqp
+GRANT EXECUTE ON [dbo].[VendorPartBidSelectedHistory_Update]  TO transitbqp

@@ -1,0 +1,1026 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F87576E-A3AA-4AC1-BDB8-C66347447E4B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bqpt.WebUI</RootNamespace>
+    <AssemblyName>Bqpt.WebUI</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44326</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
+    <CodeAnalysisRuleSet>..\.sonarlint\templatecsharp.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.EF6, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.EF6.2.0.0\lib\net461\AutoMapper.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="BC.Identity.Kernel">
+      <HintPath>..\..\..\Shared DLLs\BC.Identity.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="BC.Monitors.Data">
+      <HintPath>..\..\..\Shared DLLs\BC.Monitors.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="BC.Monitors.Kernel">
+      <HintPath>..\..\..\Shared DLLs\BC.Monitors.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.5.1.0\lib\net462\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.6\lib\net48\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.0.30.0\lib\net45\DelegateDecompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.30.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.6.1\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.Mvc, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.Mvc5.8.6.1\lib\net45\FluentValidation.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.ValidatorAttribute, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.ValidatorAttribute.8.6.1\lib\net45\FluentValidation.ValidatorAttribute.dll</HintPath>
+    </Reference>
+    <Reference Include="MediatR, Version=9.0.0.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediatR.9.0.0\lib\net461\MediatR.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=6.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.Futures.5.0.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Reflection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Reflection.Core.1.1.1\lib\net45\Mono.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz, Version=3.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.3.3.3\lib\net472\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="RedWillow.MvcToastrFlash, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RedWillow.MvcToastrFlash.1.0.0\lib\net45\RedWillow.MvcToastrFlash.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web.4.0.0.315\lib\net40\StructureMap.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BidsController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="DependencyResolution\ControllerConvention.cs" />
+    <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="DependencyResolution\IoC.cs" />
+    <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
+    <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Infrastructure\Filters\AppParameters.cs" />
+    <Compile Include="Infrastructure\Filters\RequireSecureConnectionFilter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="Web References\ReportExecution\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ReportService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\error.png" />
+    <Content Include="Content\GreenCheck.png" />
+    <Content Include="Content\template-support\bs4\bootstrap.css" />
+    <Content Include="Content\template-support\bs4\docs.css" />
+    <Content Include="Content\template-support\css\animate.css" />
+    <Content Include="Content\template-support\css\bs4-toggle.min.css" />
+    <Content Include="Content\template-support\css\custom.css" />
+    <Content Include="Content\template-support\css\email.css" />
+    <Content Include="Content\template-support\css\jasny-bootstrap.css" />
+    <Content Include="Content\template-support\css\login.css" />
+    <Content Include="Content\template-support\css\login.min.css" />
+    <Content Include="Content\template-support\css\Site.css" />
+    <Content Include="Content\template-support\css\site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
+    <Content Include="Content\template-support\css\style.css" />
+    <Content Include="Content\template-support\css\toastr.css" />
+    <Content Include="Content\template-support\css\toastr.min.css" />
+    <Content Include="Content\template-support\css\util.css" />
+    <Content Include="Content\template-support\css\util.min.css" />
+    <Content Include="Content\template-support\fa\css\all.css" />
+    <Content Include="Content\template-support\fa\css\all.min.css" />
+    <Content Include="Content\template-support\fa\css\brands.css" />
+    <Content Include="Content\template-support\fa\css\brands.min.css" />
+    <Content Include="Content\template-support\fa\css\fontawesome.css" />
+    <Content Include="Content\template-support\fa\css\fontawesome.min.css" />
+    <Content Include="Content\template-support\fa\css\regular.css" />
+    <Content Include="Content\template-support\fa\css\regular.min.css" />
+    <Content Include="Content\template-support\fa\css\solid.css" />
+    <Content Include="Content\template-support\fa\css\solid.min.css" />
+    <Content Include="Content\template-support\fa\css\svg-with-js.css" />
+    <Content Include="Content\template-support\fa\css\svg-with-js.min.css" />
+    <Content Include="Content\template-support\fa\css\v4-shims.css" />
+    <Content Include="Content\template-support\fa\css\v4-shims.min.css" />
+    <Content Include="Content\template-support\fa\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\template-support\fa\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\template-support\fa\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\template-support\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\template-support\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\template-support\fonts\OpenSans-Regular.svg" />
+    <Content Include="Content\template-support\icheck\all.css" />
+    <Content Include="Content\template-support\icheck\flat\aero%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\aero.css" />
+    <Content Include="Content\template-support\icheck\flat\aero.png" />
+    <Content Include="Content\template-support\icheck\flat\blue%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\blue.css" />
+    <Content Include="Content\template-support\icheck\flat\blue.png" />
+    <Content Include="Content\template-support\icheck\flat\flat%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\flat.css" />
+    <Content Include="Content\template-support\icheck\flat\flat.png" />
+    <Content Include="Content\template-support\icheck\flat\green%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\green.css" />
+    <Content Include="Content\template-support\icheck\flat\green.png" />
+    <Content Include="Content\template-support\icheck\flat\grey%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\grey.css" />
+    <Content Include="Content\template-support\icheck\flat\grey.png" />
+    <Content Include="Content\template-support\icheck\flat\orange%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\orange.css" />
+    <Content Include="Content\template-support\icheck\flat\orange.png" />
+    <Content Include="Content\template-support\icheck\flat\pink%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\pink.css" />
+    <Content Include="Content\template-support\icheck\flat\pink.png" />
+    <Content Include="Content\template-support\icheck\flat\purple%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\purple.css" />
+    <Content Include="Content\template-support\icheck\flat\purple.png" />
+    <Content Include="Content\template-support\icheck\flat\red%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\red.css" />
+    <Content Include="Content\template-support\icheck\flat\red.png" />
+    <Content Include="Content\template-support\icheck\flat\yellow%402x.png" />
+    <Content Include="Content\template-support\icheck\flat\yellow.css" />
+    <Content Include="Content\template-support\icheck\flat\yellow.png" />
+    <Content Include="Content\template-support\icheck\flat\_all.css" />
+    <Content Include="Content\template-support\icheck\futurico\futurico%402x.png" />
+    <Content Include="Content\template-support\icheck\futurico\futurico.css" />
+    <Content Include="Content\template-support\icheck\futurico\futurico.png" />
+    <Content Include="Content\template-support\icheck\line\aero.css" />
+    <Content Include="Content\template-support\icheck\line\blue.css" />
+    <Content Include="Content\template-support\icheck\line\green.css" />
+    <Content Include="Content\template-support\icheck\line\grey.css" />
+    <Content Include="Content\template-support\icheck\line\line%402x.png" />
+    <Content Include="Content\template-support\icheck\line\line.css" />
+    <Content Include="Content\template-support\icheck\line\line.png" />
+    <Content Include="Content\template-support\icheck\line\orange.css" />
+    <Content Include="Content\template-support\icheck\line\pink.css" />
+    <Content Include="Content\template-support\icheck\line\purple.css" />
+    <Content Include="Content\template-support\icheck\line\red.css" />
+    <Content Include="Content\template-support\icheck\line\yellow.css" />
+    <Content Include="Content\template-support\icheck\line\_all.css" />
+    <Content Include="Content\template-support\icheck\minimal\aero%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\aero.css" />
+    <Content Include="Content\template-support\icheck\minimal\aero.png" />
+    <Content Include="Content\template-support\icheck\minimal\blue%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\blue.css" />
+    <Content Include="Content\template-support\icheck\minimal\blue.png" />
+    <Content Include="Content\template-support\icheck\minimal\green%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\green.css" />
+    <Content Include="Content\template-support\icheck\minimal\green.png" />
+    <Content Include="Content\template-support\icheck\minimal\grey%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\grey.css" />
+    <Content Include="Content\template-support\icheck\minimal\grey.png" />
+    <Content Include="Content\template-support\icheck\minimal\minimal%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\minimal.css" />
+    <Content Include="Content\template-support\icheck\minimal\minimal.png" />
+    <Content Include="Content\template-support\icheck\minimal\orange%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\orange.css" />
+    <Content Include="Content\template-support\icheck\minimal\orange.png" />
+    <Content Include="Content\template-support\icheck\minimal\pink%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\pink.css" />
+    <Content Include="Content\template-support\icheck\minimal\pink.png" />
+    <Content Include="Content\template-support\icheck\minimal\purple%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\purple.css" />
+    <Content Include="Content\template-support\icheck\minimal\purple.png" />
+    <Content Include="Content\template-support\icheck\minimal\red%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\red.css" />
+    <Content Include="Content\template-support\icheck\minimal\red.png" />
+    <Content Include="Content\template-support\icheck\minimal\yellow%402x.png" />
+    <Content Include="Content\template-support\icheck\minimal\yellow.css" />
+    <Content Include="Content\template-support\icheck\minimal\yellow.png" />
+    <Content Include="Content\template-support\icheck\minimal\_all.css" />
+    <Content Include="Content\template-support\icheck\polaris\polaris%402x.png" />
+    <Content Include="Content\template-support\icheck\polaris\polaris.css" />
+    <Content Include="Content\template-support\icheck\polaris\polaris.png" />
+    <Content Include="Content\template-support\icheck\square\aero%402x.png" />
+    <Content Include="Content\template-support\icheck\square\aero.css" />
+    <Content Include="Content\template-support\icheck\square\aero.png" />
+    <Content Include="Content\template-support\icheck\square\blue%402x.png" />
+    <Content Include="Content\template-support\icheck\square\blue.css" />
+    <Content Include="Content\template-support\icheck\square\blue.png" />
+    <Content Include="Content\template-support\icheck\square\green%402x.png" />
+    <Content Include="Content\template-support\icheck\square\green.css" />
+    <Content Include="Content\template-support\icheck\square\green.png" />
+    <Content Include="Content\template-support\icheck\square\grey%402x.png" />
+    <Content Include="Content\template-support\icheck\square\grey.css" />
+    <Content Include="Content\template-support\icheck\square\grey.png" />
+    <Content Include="Content\template-support\icheck\square\orange%402x.png" />
+    <Content Include="Content\template-support\icheck\square\orange.css" />
+    <Content Include="Content\template-support\icheck\square\orange.png" />
+    <Content Include="Content\template-support\icheck\square\pink%402x.png" />
+    <Content Include="Content\template-support\icheck\square\pink.css" />
+    <Content Include="Content\template-support\icheck\square\pink.png" />
+    <Content Include="Content\template-support\icheck\square\purple%402x.png" />
+    <Content Include="Content\template-support\icheck\square\purple.css" />
+    <Content Include="Content\template-support\icheck\square\purple.png" />
+    <Content Include="Content\template-support\icheck\square\red%402x.png" />
+    <Content Include="Content\template-support\icheck\square\red.css" />
+    <Content Include="Content\template-support\icheck\square\red.png" />
+    <Content Include="Content\template-support\icheck\square\square%402x.png" />
+    <Content Include="Content\template-support\icheck\square\square.css" />
+    <Content Include="Content\template-support\icheck\square\square.png" />
+    <Content Include="Content\template-support\icheck\square\yellow%402x.png" />
+    <Content Include="Content\template-support\icheck\square\yellow.css" />
+    <Content Include="Content\template-support\icheck\square\yellow.png" />
+    <Content Include="Content\template-support\icheck\square\_all.css" />
+    <Content Include="Content\template-support\images\android-app-on-google-play-coming-soon.jpg" />
+    <Content Include="Content\template-support\images\android-app-on-google-play-coming-soon.png" />
+    <Content Include="Content\template-support\images\B-org-logo.png" />
+    <Content Include="Content\template-support\images\BC-Logo.jpg" />
+    <Content Include="Content\template-support\images\bc.png" />
+    <Content Include="Content\template-support\images\beach.jpg" />
+    <Content Include="Content\template-support\images\Broward_logo_white2.png" />
+    <Content Include="Content\template-support\images\browsers-bg.png" />
+    <Content Include="Content\template-support\images\header-profile-skin-2.png" />
+    <Content Include="Content\template-support\images\header-profile.png" />
+    <Content Include="Content\template-support\images\no-js.png" />
+    <Content Include="Content\template-support\images\sun.ico" />
+    <Content Include="Content\template-support\images\template-logo.png" />
+    <Content Include="Content\template-support\pdfjs\pdf.js" />
+    <Content Include="Content\template-support\pdfjs\pdf.worker.js" />
+    <Content Include="Content\template-support\summernote\summernote-bs4.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\OpenSans-Regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\BC-Logo.jpg" />
+    <Content Include="Scripts\application-framework\bootstrap-checkbox.js" />
+    <Content Include="Scripts\application-framework\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\application-framework\bootstrap-editable.js" />
+    <Content Include="Scripts\application-framework\bootstrap-session-timeout.js" />
+    <Content Include="Scripts\application-framework\bootstrap-session-timeout.min.js" />
+    <Content Include="Scripts\application-framework\bs-custom-file-input.min.js" />
+    <Content Include="Scripts\application-framework\bs4-toggle.min.js" />
+    <Content Include="Scripts\application-framework\clipboard.js" />
+    <Content Include="Scripts\application-framework\clipboard.min.js" />
+    <Content Include="Scripts\application-framework\icheck.min.js" />
+    <Content Include="Scripts\application-framework\jasny-bootstrap.js" />
+    <Content Include="Scripts\application-framework\jquery.blockUI.js" />
+    <Content Include="Scripts\application-framework\jquery.form.js" />
+    <Content Include="Scripts\application-framework\jquery.mask.js" />
+    <Content Include="Scripts\application-framework\jquery.metisMenu.js" />
+    <Content Include="Scripts\application-framework\jquery.number.js" />
+    <Content Include="Scripts\application-framework\jquery.slimscroll.js" />
+    <Content Include="Scripts\application-framework\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\application-framework\jquery.textareaCounter.plugin.js" />
+    <Content Include="Scripts\application-framework\jquery.userTimeout.js" />
+    <Content Include="Scripts\application-framework\moment.js" />
+    <Content Include="Scripts\application-framework\pace.min.js" />
+    <Content Include="Scripts\application-framework\select2.js" />
+    <Content Include="Scripts\application-framework\select2.min.js" />
+    <Content Include="Scripts\application-framework\sweetalert.min.js" />
+    <Content Include="Scripts\application-framework\template.js" />
+    <Content Include="Scripts\application-framework\toastr.js" />
+    <Content Include="Scripts\apps\bidApp.js" />
+    <Content Include="Scripts\apps\helperApp.js" />
+    <Content Include="Infrastructure\loginApp2.js" />
+    <Content Include="Scripts\apps\loginApp2.js" />
+    <Content Include="Scripts\apps\viewerApp.js" />
+    <Content Include="Scripts\dist\bidApp.es5.js" />
+    <Content Include="Scripts\dist\bidApp.es5.min.js">
+      <DependentUpon>bidApp.es5.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\dist\helperApp.es5.js" />
+    <Content Include="Scripts\dist\helperApp.es5.min.js">
+      <DependentUpon>helperApp.es5.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\dist\loginApp2.es5.js" />
+    <Content Include="Scripts\dist\loginApp2.es5.min.js">
+      <DependentUpon>loginApp2.es5.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\dist\viewerApp.es5.js" />
+    <Content Include="Scripts\dist\viewerApp.es5.min.js">
+      <DependentUpon>viewerApp.es5.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\template-support\axios\axios.min.map" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\template-support\jquery\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\template-support\axios\axios.min.js" />
+    <Content Include="Scripts\template-support\jquery\jquery-3.6.0.js" />
+    <Content Include="Scripts\template-support\jquery\jquery-3.6.0.min.js" />
+    <Content Include="Scripts\template-support\jquery\jquery-3.6.0.slim.js" />
+    <Content Include="Scripts\template-support\jquery\jquery-3.6.0.slim.min.js" />
+    <None Include="Scripts\template-support\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\template-support\jquery\jquery.validate.js" />
+    <Content Include="Scripts\template-support\jquery\jquery.validate.min.js" />
+    <Content Include="Scripts\template-support\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\template-support\jquery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\template-support\bs4\bootstrap.js.map" />
+    <Content Include="compilerconfig.json.bindings">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
+    <Content Include="libman.json" />
+    <Content Include="Scripts\template-support\jquery\jquery-3.6.0.slim.min.map" />
+    <Content Include="Scripts\template-support\jquery\jquery-3.6.0.min.map" />
+    <Content Include="Scripts\template-support\bs4\bootstrap.js" />
+    <Content Include="Scripts\template-support\bootstrap-datetimepicker\css\bootstrap-datepicker.css" />
+    <Content Include="Scripts\template-support\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />
+    <Content Include="Scripts\template-support\bootstrap-datetimepicker\js\bootstrap-datepicker.js" />
+    <Content Include="Scripts\template-support\bootstrap-datetimepicker\js\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\template-support\bootstrap-sweetalert\sweetalert.css" />
+    <Content Include="Scripts\template-support\bootstrap-sweetalert\sweetalert.js" />
+    <Content Include="Scripts\template-support\bs4\esm\popper-utils.js" />
+    <Content Include="Scripts\template-support\bs4\esm\popper-utils.min.js" />
+    <Content Include="Scripts\template-support\bs4\esm\popper.js" />
+    <Content Include="Scripts\template-support\bs4\esm\popper.min.js" />
+    <Content Include="Scripts\template-support\bs4\umd\popper-utils.js" />
+    <Content Include="Scripts\template-support\bs4\umd\popper-utils.min.js" />
+    <Content Include="Scripts\template-support\bs4\umd\popper.js" />
+    <Content Include="Scripts\template-support\bs4\umd\popper.min.js" />
+    <Content Include="Scripts\template-support\datatables\css\buttons.bootstrap4.css" />
+    <Content Include="Scripts\template-support\datatables\css\dataTables.bootstrap4.css" />
+    <Content Include="Scripts\template-support\datatables\js\buttons.bootstrap4.js" />
+    <Content Include="Scripts\template-support\datatables\js\buttons.html5.js" />
+    <Content Include="Scripts\template-support\datatables\js\buttons.print.js" />
+    <Content Include="Scripts\template-support\datatables\js\dataTables.bootstrap.js" />
+    <Content Include="Scripts\template-support\datatables\js\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\template-support\datatables\js\dataTables.buttons.js" />
+    <Content Include="Scripts\template-support\datatables\js\jquery.dataTables.js" />
+    <Content Include="Scripts\template-support\datatables\js\jszip.min.js" />
+    <Content Include="Scripts\template-support\datatables\js\pdfmake.min.js" />
+    <Content Include="Scripts\template-support\datatables\js\responsive.bootstrap4.js" />
+    <Content Include="Scripts\template-support\datatables\js\vfs_fonts.js" />
+    <Content Include="Scripts\template-support\jasny-bootstrap\js\jasny-bootstrap.js" />
+    <Content Include="Scripts\template-support\summernote\summernote-bs4.js" />
+    <Content Include="Scripts\template-support\summernote\summernote-cleaner.js" />
+    <Content Include="Scripts\template-support\summernote\summernote.js" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
+    <Content Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Scripts\template-support\lightbox2\css\close.png" />
+    <Content Include="Scripts\template-support\lightbox2\css\lightbox.css" />
+    <Content Include="Scripts\template-support\lightbox2\css\loading.gif" />
+    <Content Include="Scripts\template-support\lightbox2\css\next.png" />
+    <Content Include="Scripts\template-support\lightbox2\css\prev.png" />
+    <Content Include="Scripts\template-support\lightbox2\js\lightbox.js" />
+    <Content Include="Scripts\template-support\moment.js\moment.js" />
+    <Content Include="Scripts\template-support\moment.js\moment.min.js" />
+    <Content Include="Scripts\template-support\select2-bootstrap-css\select2-bootstrap.css" />
+    <Content Include="Scripts\template-support\select2\css\select2.css" />
+    <Content Include="Scripts\template-support\select2\js\select2.full.js" />
+    <Content Include="Scripts\template-support\sweetalert\sweetalert.min.js" />
+    <Content Include="Scripts\template-support\tooling\modernizr-2.8.3.js" />
+    <Content Include="Scripts\template-support\tooling\template-support.js" />
+    <Content Include="Scripts\template-support\tooling\toastr.js" />
+    <Content Include="Scripts\template-support\tooling\toastr.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Scripts\template-support\tooling\README.md" />
+    <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Shared\_TopNavbar.cshtml" />
+    <Content Include="Views\Shared\_ValidationSummary.cshtml" />
+    <Content Include="Views\Errors\BrowserNotSupported.cshtml" />
+    <Content Include="Views\Errors\CustomError.cshtml" />
+    <Content Include="Views\Errors\NoJavascript.cshtml" />
+    <Content Include="Views\Errors\NotFound.cshtml" />
+    <Content Include="Views\Errors\ServerError.cshtml" />
+    <Content Include="Views\Errors\TooManyRequests.cshtml" />
+    <Content Include="Views\Errors\UnAuthorized.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Scripts\template-support\summernote\summernote-bs4.js.map" />
+    <Content Include="Scripts\template-support\summernote\summernote.js.map" />
+    <Content Include="Views\Errors\Cookies.cshtml" />
+    <Content Include="Views\Shared\_AssetWorkBidQuotesPartial.cshtml" />
+    <Content Include="Views\Shared\_BidQuotesPartial.cshtml" />
+    <Content Include="Views\Bids\AssetWork.cshtml" />
+    <Content Include="Views\Shared\_BidQuoteImportPartial.cshtml" />
+    <Content Include="Views\Bids\BidQuotes.cshtml" />
+    <Content Include="Views\Shared\_BidQuoteDeletePartial.cshtml" />
+    <Content Include="Views\Shared\_BidQuoteStartPartial.cshtml" />
+    <Content Include="Views\Shared\_BidQuoteEndPartial.cshtml" />
+    <Content Include="Views\Shared\_BidQuoteClosePartial.cshtml" />
+    <Content Include="Views\Shared\_VendorsPartial.cshtml" />
+    <Content Include="Views\Shared\_BidQuoteUpdatePartial.cshtml" />
+    <Content Include="Views\Shared\_VendorBidsPartial.cshtml" />
+    <Content Include="Views\Shared\_AssetWorkNoEmailPartial.cshtml" />
+    <Content Include="Views\Shared\_ContactsPartial.cshtml" />
+    <Content Include="Views\Bids\Viewer.cshtml" />
+    <Content Include="Web References\ReportExecution\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\ReportExecution\DocumentMapNode.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportExecution\ExecutionInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportExecution\ExecutionInfo2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportExecution\ExecutionInfo3.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportExecution\Extension.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Views\Shared\_BidQuotesAllPartial.cshtml" />
+    <Content Include="Views\Reports\QuoteDetails.rdl" />
+    <Content Include="Views\Bids\Index.cshtml" />
+    <None Include="Web References\ReportExecution\ReportExecution2005.wsdl" />
+    <Content Include="Web References\ReportExecution\Warning.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\ReportService\ActiveState.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\CatalogItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\DataRetrievalPlan.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\DataSetDefinition.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\DataSource.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\DataSourceDefinition.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\DataSourcePrompt.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Event.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ExecutionSettingEnum.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ExpirationDefinition.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Extension.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ExtensionParameter.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ExtensionSettings.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ItemTypeEnum.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Job.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ModelCatalogItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ModelDrillthroughReport.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ModelItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ParameterValue.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ParameterValueOrFieldReference.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Policy.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Property.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ReportHistorySnapshot.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ReportParameter.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\ReportService\ReportService2005.wsdl" />
+    <Content Include="Web References\ReportService\Role.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Schedule.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\ScheduleDefinitionOrReference.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Subscription.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Task.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ReportService\Warning.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\template-support\open-sans\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\template-support\css\toastr.less" />
+    <Content Include="Content\template-support\css\toastr.scss" />
+    <Content Include="Content\template-support\fa\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\template-support\fa\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\template-support\fa\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\template-support\fa\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\template-support\fa\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\template-support\fa\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\template-support\fa\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\template-support\fa\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\template-support\fa\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\template-support\fa\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\template-support\fa\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\template-support\fa\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\template-support\fonts\59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2" />
+    <Content Include="Content\template-support\fonts\cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2" />
+    <Content Include="Content\template-support\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\template-support\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\template-support\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\template-support\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\template-support\fonts\FontAwesome.otf" />
+    <Content Include="Content\template-support\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\template-support\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\template-support\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\template-support\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\template-support\fonts\OpenSans-Bold.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-Italic.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-Light.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-Regular.eot" />
+    <Content Include="Content\template-support\fonts\OpenSans-Regular.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-Regular.woff" />
+    <Content Include="Content\template-support\fonts\OpenSans-Regular.woff2" />
+    <Content Include="Content\template-support\fonts\OpenSans-Semibold.ttf" />
+    <Content Include="Content\template-support\fonts\OpenSans-SemiboldItalic.ttf" />
+    <Content Include="Content\template-support\fonts\summernote.eot" />
+    <Content Include="Content\template-support\fonts\summernote.ttf" />
+    <Content Include="Content\template-support\fonts\summernote.woff" />
+    <Content Include="Content\template-support\fonts\u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2" />
+    <Content Include="Content\template-support\fonts\xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2" />
+    <Content Include="Content\template-support\pdfjs\pdf.js.map" />
+    <Content Include="Content\template-support\pdfjs\pdf.worker.js.map" />
+    <Content Include="fonts\59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2" />
+    <Content Include="fonts\cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\OpenSans-Bold.ttf" />
+    <Content Include="fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-Italic.ttf" />
+    <Content Include="fonts\OpenSans-Light.ttf" />
+    <Content Include="fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="fonts\OpenSans-Regular.eot" />
+    <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-Regular.woff" />
+    <Content Include="fonts\OpenSans-Regular.woff2" />
+    <Content Include="fonts\OpenSans-Semibold.ttf" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.ttf" />
+    <Content Include="fonts\u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2" />
+    <Content Include="fonts\xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\template-support\bs4\esm\popper-utils.js.map" />
+    <Content Include="Scripts\template-support\bs4\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\template-support\bs4\esm\popper.js.map" />
+    <Content Include="Scripts\template-support\bs4\esm\popper.min.js.map" />
+    <Content Include="Scripts\template-support\bs4\umd\popper-utils.js.map" />
+    <Content Include="Scripts\template-support\bs4\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\template-support\bs4\umd\popper.js.map" />
+    <Content Include="Scripts\template-support\bs4\umd\popper.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\template-support\bs4\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bqpt.Application\Bqpt.Application.csproj">
+      <Project>{79d83b33-4133-4d73-b1eb-0bc709fa685f}</Project>
+      <Name>Bqpt.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bqpt.Common\Bqpt.Common.csproj">
+      <Project>{2c692bfd-db29-4979-ab80-9860183ee31c}</Project>
+      <Name>Bqpt.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bqpt.Domain\Bqpt.Domain.csproj">
+      <Project>{FDC5F595-326F-47AF-BCC3-9A5C756BDE33}</Project>
+      <Name>Bqpt.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bqpt.Infrastructure\Bqpt.Infrastructure.csproj">
+      <Project>{e731b55f-9178-45c0-b6d8-d953e6ae4752}</Project>
+      <Name>Bqpt.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://devsqlrpt19.appdev.cty/ReportServer/ReportExecution2005.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ReportExecution\</RelPath>
+      <UpdateFromURL>http://devsqlrpt19.appdev.cty/ReportServer/ReportExecution2005.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Bqpt_WebUI_ReportExecution_ReportExecutionService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://devsqlrpt19.appdev.cty/ReportServer/ReportService2005.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ReportService\</RelPath>
+      <UpdateFromURL>http://devsqlrpt19.appdev.cty/ReportServer/ReportService2005.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Bqpt_WebUI_ReportService_ReportingService2005</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53213</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44369/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+    <Error Condition="!Exists('..\packages\BuildBundlerMinifier.3.2.449\build\BuildBundlerMinifier.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BuildBundlerMinifier.3.2.449\build\BuildBundlerMinifier.targets'))" />
+    <Error Condition="!Exists('..\packages\BuildWebCompiler.1.12.405\build\BuildWebCompiler.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BuildWebCompiler.1.12.405\build\BuildWebCompiler.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Import Project="..\packages\BuildBundlerMinifier.3.2.449\build\BuildBundlerMinifier.targets" Condition="Exists('..\packages\BuildBundlerMinifier.3.2.449\build\BuildBundlerMinifier.targets')" />
+  <Import Project="..\packages\BuildWebCompiler.1.12.405\build\BuildWebCompiler.targets" Condition="Exists('..\packages\BuildWebCompiler.1.12.405\build\BuildWebCompiler.targets')" />
+  <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

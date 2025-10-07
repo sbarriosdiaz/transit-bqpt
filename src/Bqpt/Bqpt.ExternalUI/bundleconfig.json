@@ -1,0 +1,19 @@
+[
+  {
+    "outputFileName": "Content/template-support/css/site.css",
+    "inputFiles": [
+      "Content/template-support/bs4/bootstrap.css",
+      "Content/template-support/css/style.css",
+      "Content/template-support/css/bs4-toggle.min.css",
+      "Scripts/template-support/select2/css/select2.css",
+      "Scripts/template-support/select2-bootstrap-css/select2-bootstrap.css",
+      "Content/template-support/bs4/docs.css",
+      "Content/template-support/css/jasny-bootstrap.css",
+      "Content/template-support/css/toastr.css",
+      "Content/template-support/icheck/minimal/minimal.css",
+      "Scripts/template-support/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css",
+      "Content/template-support/css/custom.css"
+    ]
+  }
+
+]

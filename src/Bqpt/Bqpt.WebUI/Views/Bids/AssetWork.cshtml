@@ -1,0 +1,117 @@
+﻿@model AssetWorksBidQuoteDto
+
+@{
+    ViewBag.Title = "AssetWork Bid Quote";
+    var row = 0;
+}
+
+<div class="row bg-white card bid-font-color no-borders">
+    <div class="card-header pl-2 mt-0 pt-0 pr-0 mr-0 pb-1">
+        <h2 class="mb-0">@(Model.AssetWorksBidQuoteId) <span class="bid-font-color badge badge-light bid-badges-small-black" title="Open BidQuote from AssetWorks">AssetWorks (Open)</span></h2>
+        <h5 class="font-normal"><strong>Created:</strong> @(Model.AssetWorksDateInserted)</h5>
+    </div>
+    <div class="card-body row mb-2 ml-1 pl-0 pb-2 mt-0 pt-2">
+        <div class="mr-auto ml-0 mt-0 pt-0">
+            <span class="badge badge-primary bid-badges-small" title="Total Parts">Parts: @(Model.TotalCountParts)</span>
+            <span>|</span>
+            <span class="badge badge-warning bid-badges-small" title="Parts With No Commodity Code">No CC: @(Model.TotalCountNoCC)</span>
+            <span>|</span>
+            <span class="badge badge-danger bid-badges-small" title="Parts with No Vendor Match">No Match: @(Model.TotalCountNoVendorMatch)</span>
+            <span class="d-print-none">|</span>
+            <span class="badge badge-info bid-badges-small" title="Vendors with No Email but Match CC" onclick="bidApp.OpenVendorNoEmailModal(`@Model.AssetWorksBidQuoteId`)" style="cursor:pointer">No Email: @(Model.VendorsWithNoEmailCount)</span>
+            <span class="d-print-none">|</span>
+            @Html.ActionLink(" ", "AssetWorksExportToExcel", "Bids", new { id = Model.AssetWorksBidQuoteId }, new { @Class = "far fa-file-excel fa-lg text-decoration-none d-print-none", @Title = "Export" })
+            <a href="#" class="fas fa-print fa-lg text-decoration-none d-print-none p-0 m-0" onclick="window.print();" title="Print"></a>
+        </div>
+        <div class="d-print-none ml-2 mt-1 mr-2">
+            <button id="js-btn-toggle" class="btn btn-secondary btn-sm" type="button" onclick="bidApp.ToggleVendors(this.value)" value="1">
+                Show Vendors
+            </button>
+            @if (!string.IsNullOrEmpty(Model.AssetWorksBidQuoteId))
+            {
+            <button class="btn btn-primary btn-sm" type="button" onclick="bidApp.OpenImportBidModal(`@Model.AssetWorksBidQuoteId`)">
+                Import Bid
+            </button>
+            }
+            else
+            {
+            <button class="btn btn-primary btn-sm disabled" type="button">
+                Import Bid
+            </button>
+            }
+        </div>
+    </div>
+    <div class="bg-white card-body m-0 pl-2 pr-2 pt-0">
+        <table class="table" aria-label="AssetWorkBids">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center" style="max-width:10px;">
+                    </th>
+                    <th scope="col" class="text-nowrap align-bottom text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Vendors">
+                        Vendors
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-table-cell d-sm-none d-md-none d-lg-none d-xl-none d-print-none" title="Vendors">
+                        Vens
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-none d-md-none d-lg-none d-xl-table-cell d-print-none" title="Vendors">
+                        No-Email
+                    </th>
+                    <th scope="col" class="align-bottom text-center w-auto" title="Asset Works Part Number">
+                        Part-No
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-none" title="Asset Works Part Suffix">
+                        Sfx
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-none d-none d-lg-none d-xl-table-cell d-print-none" title="Asset Works Part Description">
+                        Description
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works Last Price">
+                        Price
+                    </th>
+                    
+                    <th scope="col" class="align-bottom w-auto text-center d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-none" title="Asset Works Requisiton Part Line Number">
+                        LN
+                    </th>                   
+                    <th scope="col" class="w-auto text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works On Hand">
+                        On-Hand
+                    </th>
+                    <th scope="col" class="w-auto text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works On Order">
+                        On-Order
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="align-text-bottom">
+                @foreach (var p in Model?.Parts)
+                {
+                    row++;
+                    var headingId = "Vendor_Heading_" + (row).ToString();
+                    var collapseId = "Vendor_Collapse_" + (row).ToString();
+
+                <tr id="@(headingId)" class="@(p.NoVendorMatch || string.IsNullOrEmpty(p.AssetWorksPartCommodityCode) ? "bg-gray-200": "")">
+                    <td class="text-center align-middle">@(row)</td>                    
+                    <td class="text-center align-middle">                       
+                        <button class="@(p.NoVendorMatch ? "btn-danger" : string.IsNullOrEmpty(p.AssetWorksPartCommodityCode) ? "btn-warning" : "btn-primary") btn btn-xs btn-width-30" type="button" data-toggle="collapse" data-target="#@(collapseId)" aria-expanded="true" aria-controls="@(collapseId)">
+                            @(p.VendorCount)
+                        </button>
+                    </td>
+                    <td class="align-middle text-center d-none d-none d-md-none d-lg-none d-xl-table-cell d-print-none">@(p.VendorNoEmailCount)</td>
+                    <td class="align-middle text-center">@(p.AssetWorksPartNumber)</td>
+                    <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell">@(p.AssetWorksPartSuffix)</td>
+                    <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell">@(p.AssetWorksPartDescription)</td>
+                    <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell">@string.Format("{0:C}", p.AssetWorksUnitPrice.ConvertToDecimal())</td>
+                    <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell">@(p.AssetWorksPartLineNumber)</td>
+                    <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell">@(p.AssetWorksPartQuantityOnHand)</td>
+                    <td class="align-middle text-center d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell">@(p.AssetWorksPartQuantityOnOrder)</td>
+                </tr>
+                <tr>
+                    <td scope="row" colspan="14" class="p-0">
+                        <div id="@(collapseId)" class="collapse" aria-labelledby="@(headingId)" data-parent="#@(headingId)">
+                            @Html.Partial("_VendorsPartial", p.Vendors, new ViewDataDictionary { { "Id", @row } })
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

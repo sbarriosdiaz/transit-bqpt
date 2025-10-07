@@ -1,0 +1,124 @@
+﻿@model BidQuotePartDto
+
+@{
+    var vendorBidVendorIds = Model.VendorBids.Select(vb => vb.VendorId).ToList();
+    var vendorInParts = Model.VendorInParts.Where(vp => !vendorBidVendorIds.Contains(vp.VendorId)).ToList();
+    var vendorBids = Model.VendorBids.ToList();
+}
+
+<table class="table table-striped" style="vertical-align:middle;" aria-label="VendorBids">
+    <thead>
+        <tr>
+            <th scope="col" class="w-auto" title="Asset Works Vendor Number">
+                Number
+            </th>
+            <th scope="col" class="w-auto" title="Asset Works Vendor Name">
+                Name
+            </th>
+            <th scope="col" class="w-auto d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Asset Works Vendor Email">
+                Email
+            </th>
+            <th scope="col" class="text-center w-auto" title="Vendor Bid Price">
+                Price
+            </th>
+            <th scope="col" class="text-center w-auto d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Vendor Bid Unit Quanity">
+                Qty
+            </th>
+            <th scope="col" class="text-center w-auto d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Vendor Bid Items Per Unit">
+                IPU
+            </th>
+            <th scope="col" class="text-center w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Vendor Bid Estimated Delivery Date">
+                Delivery
+            </th>
+            <th scope="col" class="text-center w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Vendor Bid Estimated Delivery Date">
+                Core Charge
+            </th>
+            <th scope="col" class="w-auto d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="Vendor Bid Comment">
+                Comment
+            </th>
+            <th scope="col" class="text-center w-auto d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-none" title="Vendor Bid Invoice">
+                Quote
+            </th>
+        </tr>
+    </thead>
+    <tbody class="align-text-bottom">
+        @if (vendorBids.Any())
+        {
+        <tr>
+            <td colspan="11" class="font-bold small">Bids: @(vendorBids.Count)</td>
+        </tr>
+        }
+        @foreach (var vb in vendorBids.OrderByDescending(o => o.IsSelected))
+        {
+            if (vb.BidQuoteStatus.ParseEnum<BidQuoteStatus>() == BidQuoteStatus.Ended)
+            {
+        <tr id="js-tr_@(vb.BidQuotePartId)_@(vb.DomainKey)" class="@((vb.IsSelected.Equals(true)) ? "bg-selected-bidder" : "")" onclick="bidApp.SelectVendor(`@(vb.DomainKey)`, `@(vb.BidQuotePartId)`, '@(vb.IsSelected)')" style="cursor:pointer">
+
+            <td class="text-nowrap" title="VendorId @(vb.VendorId)">@(vb.Vendor.AssetWorksVendorNumber)</td>
+            <td title="VendorPartBidId @(vb.Id)">@(vb.Vendor.AssetWorksVendorName)</td>
+            <td class="d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="@(vb.Vendor.AssetWorksVendorPhone)">@(vb.Vendor.AssetWorksVendorEmail)</td>
+            <td class="text-center" title="Delivery Date: @($"{vb.EstimateDeliveryDate:d}")">$@(vb.UnitPrice)</td>
+            <td class="text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell">@(vb.QuantityAvailable)</td>
+            <td class="text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell">@(vb.ItemsPerUnit)</td>
+            <td class="text-center d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@($"{vb.EstimateDeliveryDate:d}")</td>
+            <td class="text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell">@(vb.Core.HasValue ? vb.Core.Value.ToString("C") : "")</td>
+            <td class="text-break d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" style="max-width:650px">@(vb.Comment)</td>
+            <td class="text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-none">
+                @if (vb.Attachment != null)
+                {
+                    if (vb.Attachment.Status.ParseEnum<AttachmentStatus>() == AttachmentStatus.Active)
+                    {
+                        <a href="@Url.Action("Viewer", "Bids", new { id = vb.Attachment.AttachmentId })" rel="nofollow noreferrer" title="View" target="_blank">
+                            <em class="far fa-file-alt fa-lg"></em>
+                        </a>
+                        <a href="@Url.Action("DownloadFile", "Bids", new { id = vb.Attachment.AttachmentId, filename = vb.Attachment.FileFriendlyName, fileextension = vb.Attachment.FileExtension })" rel="nofollow noreferrer" title="Download">
+                            <em class="far fa-file-pdf fa-lg"></em>
+                        </a>
+                    }
+                }
+            </td>
+        </tr>
+            }
+            if (vb.BidQuoteStatus.ParseEnum<BidQuoteStatus>() != BidQuoteStatus.Ended)
+            {
+    <tr id="js-tr_@(vb.BidQuotePartId)_@(vb.DomainKey)" class="@((vb.IsSelected.Equals(true)) ? "bg-selected-bidder" : "")">
+
+        <td class="text-nowrap" title="VendorId @(vb.VendorId)">@(vb.Vendor.AssetWorksVendorNumber)</td>
+        <td title="VendorPartBidId @(vb.Id)">@(vb.Vendor.AssetWorksVendorName)</td>
+        <td class="d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="@(vb.Vendor.AssetWorksVendorPhone)">@(vb.Vendor.AssetWorksVendorEmail)</td>
+        <td class="text-center" title="Delivery Date: @($"{vb.EstimateDeliveryDate:d}")">$@(vb.UnitPrice)</td>
+        <td class="text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell">@(vb.QuantityAvailable)</td>
+        <td class="text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell">@(vb.ItemsPerUnit)</td>
+        <td class="text-center d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@($"{vb.EstimateDeliveryDate:d}")</td>
+        <td class="text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-table-cell">@(vb.Core.HasValue ? vb.Core.Value.ToString("C") : "")</td>
+        <td class="text-break d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" style="max-width:650px">@(vb.Comment)</td>
+        <td class="text-center d-none d-sm-table-cell d-md-table-cell d-lg-table-cell d-xl-table-cell d-print-none">
+            @if (vb.Attachment != null && vb.Attachment.Status.ParseEnum<AttachmentStatus>() == AttachmentStatus.Active)
+            {
+
+                <a href="@Url.Action("Viewer", "Bids", new { id = vb.Attachment.AttachmentId })" title="View" rel="nofollow noreferrer" target="_blank">
+                    <em class="far fa-file-alt fa-lg"></em>
+                </a>
+                <a href="@Url.Action("DownloadFile", "Bids", new { id = vb.Attachment.AttachmentId, filename = vb.Attachment.FileFriendlyName, fileextension = vb.Attachment.FileExtension })" title="Download" rel="nofollow noreferrer">
+                    <em class="far fa-file-pdf fa-lg"></em>
+                </a>
+
+            }
+        </td>
+    </tr>
+            }
+        }
+        <tr>
+            <td colspan="11" class="font-bold small">No Response: @Math.Abs((Model.VendorInPartsCount) - (Model.VendorBidsCount))</td>
+        </tr>
+        @foreach (var vp in vendorInParts)
+        {
+        <tr>
+            <td class="text-nowrap" title="VendorId @(vp.Vendor.Id)">@(vp.Vendor.AssetWorksVendorNumber)</td>
+            <td title="VendorInPartId @(vp.Id)">@(vp.Vendor.AssetWorksVendorName)</td>
+            <td class="d-none d-sm-none d-md-none d-lg-none d-xl-table-cell d-print-table-cell" title="@(vp.Vendor.AssetWorksVendorPhone)">@(vp.Vendor.AssetWorksVendorEmail)</td>
+            <td colspan="8"></td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,26 @@
+﻿<div class="row border-bottom pb-2">
+    <div class="col-2">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" aria-label="hambuerger"><span class="fas fa-align-justify mr-1" aria-hidden="true"></span></a>
+            </div>
+        </nav>
+    </div>
+    <div class="col-10 hidden-print">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Get, new { id = "signOutForm" }))
+        {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger float-right login-button d-none d-md-block" data-toggle="tooltip" data-placement="bottom" title="Log Out From Portal">
+            <span class="fas fa-sign-out-alt mr-1" aria-hidden="true"></span>LOG OUT
+        </button>
+        <a role="button" href="javascript:document.getElementById('signOutForm').submit()" aria-label="mobile-signout" class="btn btn-danger float-right login-button d-block d-sm-none">
+            <span class="fas fa-sign-out-alt" aria-hidden="true"></span>
+        </a>
+        <a href="#" rel="noreferrer" class="btn btn-default float-right login-button d-none d-md-block">
+            <span class="float-right">
+                <strong>@Html.Raw(ViewBag.WelcomeHeader)</strong>
+            </span>
+        </a>
+        }
+    </div>
+</div>

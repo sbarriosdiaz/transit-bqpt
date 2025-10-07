@@ -1,0 +1,74 @@
+﻿@model BidQuoteViewModel
+
+<div id="js-pnl-helper">
+    @using (Html.BeginForm("UpdateBidQuote", "Bids", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.BidStartTime)
+        @Html.HiddenFor(model => model.BidScheduledStartTime)
+        @Html.HiddenFor(model => model.OriginalBidScheduledEndTime)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.AssetWorksBidQuoteId)
+            @Html.TextBoxFor(m => m.AssetWorksBidQuoteId, null, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(m => m.AssetWorksBidQuoteId, null, new { @class = "text-validation" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BidScheduledEndTime, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.BidScheduledEndTime, new
+            {
+            htmlAttributes = new
+                {
+                @id = "BidScheduledEndTime",
+                @class = "col-md-4 col-lg-4 col-xl-4",
+                placeholder = "Select Date",
+                @required = "true",
+                @type = "datetime-local",
+                @onkeydown ="return false"
+                }
+            })
+            @Html.ValidationMessageFor(model => model.BidScheduledEndTime, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update Bid</button>
+        </div>
+    }
+</div>
+
+<div id="js-pnl-validationresultmessage" class="d-none text-danger"></div>
+
+<!-- Moment.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+<script type="text/javascript">
+    // Set min and max on load
+    $('input[type=datetime-local]').attr({
+        min: moment().add(1, 'days').set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).format('YYYY-MM-DDTHH:mm'),
+        max: moment().add(1, 'years').set({ hour: 23, minute: 59, second: 59, millisecond: 999 }).format('YYYY-MM-DDTHH:mm')
+    });
+
+    // Validate form submission
+    $('form').submit(function (e) {
+        const input = $('#BidScheduledEndTime').val();
+
+        // Check for valid format and real calendar date
+        const isValid = moment(input, moment.HTML5_FMT.DATETIME_LOCAL, true).isValid();
+
+        if (!isValid) {
+            e.preventDefault();
+
+            $('#js-pnl-validationresultmessage')
+                .removeClass('d-none')
+                .addClass('text-danger')
+                .text('The date you entered is not valid. Please enter a real calendar date (e.g., no Feb 31 or April 31).');
+
+            return false;
+        }
+
+        helperApp.BlockUI('js-pnl-helper');
+    });
+</script>
+

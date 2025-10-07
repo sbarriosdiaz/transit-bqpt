@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Welcome</title>
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+    <meta name="Description" content="Welcome to Broward County">
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+    </style>
+
+    @Styles.Render("~/Content/css-front")
+    <link href="~/Content/template-support/fa/css/all.min.css" rel="stylesheet" />
+    
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+</head>
+<body>
+    <!--Main Navigation-->
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-md fixed-top box-shadow">
+            <div class="container">
+
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="@Url.Action("Index","Home")" aria-label="Home">
+                    <img src="~/Content/external-template-support/B-org-logo.png" class="img-brand d-none d-sm-block" alt="Welcome" />
+
+                    <img src="~/Content/external-template-support/favicon-apple-touch_bw.png" class="img-brand d-block d-sm-none" alt="Welcome" />
+                </a>
+
+                <!-- Collapse -->
+                <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fas fa-align-justify mr-1" aria-hidden="true"></span>
+                </button>
+
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="@Url.Action("Dashboard","Home")">
+                                Dashboard
+                            </a>
+                        </li>
+                        }
+                    </ul>
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Logoff","Account")" class="nav-link waves-effect btn btn-danger">
+                                <span class="fas fa-sign-out-alt mr-1" aria-hidden="true"></span>Sign Out
+                            </a>
+                        </li>
+                        }
+                        else
+                        {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Authorize","Account")" class="nav-link waves-effect btn btn-success">
+                                <span class="fas fa-sign-in-alt mr-1" aria-hidden="true"></span>Sign In
+                            </a>
+                        </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <!--Main Content-->
+    <main id="main-content" class="container">
+        <section id="page-content" class="body-content">
+
+            @RenderBody()
+        </section>
+    </main>
+    <footer class="page-footer broward-BGcolor-darkblue center-on-small-only footer d-none d-md-block">
+        <!--Footer Links-->
+        <div class="container no-print mt-2">
+            <div class="row">
+                <!--First column-->
+                <div class="col-md-4 text-center">
+                    <div class="pt-2">
+
+                        <img alt="Broward County" src="~/Content/template-support/images/Broward_logo_white2.png" />
+                    </div>
+
+                    <div class="d-flex justify-content-center social">
+                        <div class="px-3"><a rel="noopener noreferrer" href="https://www.facebook.com/BrowardCountyGovernment/" target="_blank" title="Follow us on Facebook"><svg class="svg-inline--fa fa-facebook fa-w-14 fa-2x fa-inverse" aria-hidden="true" data-prefix="fab" data-icon="facebook" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a></div>
+                        <div class="px-3"><a rel="noopener noreferrer" href="https://twitter.com/BrowardCounty" target="_blank" title="Follow us on Twitter"><svg class="svg-inline--fa fa-twitter fa-w-16 fa-2x fa-inverse" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M443.8 159.7c.3 4.2.3 8.4.3 12.6 0 128.1-97.5 275.7-275.7 275.7-54.9 0-105.9-15.9-148.8-43.5 7.8.9 15.3 1.2 23.4 1.2 45.3 0 87-15.3 120.3-41.4-42.6-.9-78.3-28.8-90.6-67.2 6 .9 12 1.5 18.3 1.5 8.7 0 17.4-1.2 25.5-3.3-44.4-9-77.7-48-77.7-95.1V199c12.9 7.2 27.9 11.7 43.8 12.3-26.1-17.4-43.2-47.1-43.2-80.7 0-18 4.8-34.5 13.2-48.9 47.7 58.8 119.4 97.2 199.8 101.4-1.5-7.2-2.4-14.7-2.4-22.2 0-53.4 43.2-96.9 96.9-96.9 27.9 0 53.1 11.7 70.8 30.6 21.9-4.2 42.9-12.3 61.5-23.4-7.2 22.5-22.5 41.4-42.6 53.4 19.5-2.1 38.4-7.5 55.8-15-13.2 19.2-29.7 36.3-48.6 50.1z"></path></svg> </a></div>
+                        <div class="px-3"><a rel="noopener noreferrer" href="https://www.youtube.com/channel/UCkFUpAuNegNExxOKo_5KJ6w/videos" target="_blank" title="Follow us on YouTube"><svg class="svg-inline--fa fa-youtube fa-w-16 fa-2x fa-inverse" aria-hidden="true" data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M501.3 120.3c-5.9-22.2-23.2-39.6-45.3-45.6C416.1 64 256 64 256 64S95.9 64 56 74.8c-22 5.9-39.4 23.4-45.3 45.6C0 160.5 0 244.4 0 244.4s0 83.8 10.7 124c5.9 22.2 23.2 38.9 45.3 44.8C95.9 424 256 424 256 424s160.1 0 200-10.8c22-5.9 39.4-22.7 45.3-44.8 10.7-40.2 10.7-124 10.7-124s0-83.9-10.7-124.1zM203.6 320.5V168.2l133.8 76.1-133.8 76.2z"></path></svg> </a></div>
+                        <div class="px-3"><a rel="noopener noreferrer" href="mailto:publicinfo@broward.org" title="Contact Broward County"><svg class="svg-inline--fa fa-envelope fa-w-16 fa-2x fa-inverse" aria-hidden="true" data-prefix="fal" data-icon="envelope" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M464 64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h416c8.8 0 16 7.2 16 16v41.4c-21.9 18.5-53.2 44-150.6 121.3-16.9 13.4-50.2 45.7-73.4 45.3-23.2.4-56.6-31.9-73.4-45.3C85.2 197.4 53.9 171.9 32 153.4V112c0-8.8 7.2-16 16-16zm416 320H48c-8.8 0-16-7.2-16-16V195c22.8 18.7 58.8 47.6 130.7 104.7 20.5 16.4 56.7 52.5 93.3 52.3 36.4.3 72.3-35.5 93.3-52.3 71.9-57.1 107.9-86 130.7-104.7v205c0 8.8-7.2 16-16 16z"></path></svg> </a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 my-auto">
+                    <div class="row">
+                        <div class="col">
+                            <div class="text-center">
+                                &copy; @DateTime.Now.Year Copyright: <a href="https://www.broward.org">Broward County Government</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 my-auto mb-2">
+
+                    <ul class="external-footer-links">
+
+                        <li><a href="https://www.broward.org/Pages/PhoneA.aspx" rel="noopener noreferrer">Contact Us</a></li>
+
+                        <li><a href="https://www.broward.org/ReportAComplaint/Pages/Default.aspx" rel="noopener noreferrer">Report a Complaint</a></li>
+                        <li><a href="https://www.broward.org/StayConnected/Pages/Default.aspx" rel="noopener noreferrer">Subscribe</a></li>
+                        <li><a href="https://www.broward.org/Terms/Pages/Default.aspx" rel="noopener noreferrer">Terms of Use</a></li>
+                        <li><a href="https://www.broward.org/Terms/Pages/Default.aspx" rel="noopener noreferrer">Accessibility Statement</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryval", "~/bundles/jsbootstrap", "~/bundles/jstemplate", "~/bundles/jsengine")
+
+    <script>
+        var appUrl = '@Url.Content("~")';
+         if (window.navigator.msPointerEnabled) {
+            window.location = "@Url.Action("BrowserNotSupported", "Error")";
+        }
+        (function ($) {
+            $.ajaxSetup({ cache: false });
+             console.log("%cWeb Portal - Broward County FL", "color: #ff0000; font-size:35px;");
+             console.log("%cAny Unauthorized Use of this Application is Illegal!", "color: #ff0000; font-size:25px;");
+        })(jQuery);
+        helperApp.GlobalCleaner();
+        $(document).userTimeout({
+            logouturl: '@Url.Action("LogOff", "Account")',
+            force: 3000,
+            session: 1200000
+        });
+    </script>
+    @Html.ToastrNotifications()
+    @RenderSection("scripts", required: false)
+</body>
+</html>

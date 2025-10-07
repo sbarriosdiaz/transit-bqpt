@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AssetWorksBidQuoteDto>
+
+<div class="feed-activity-list">
+    @foreach (var p in Model)
+    {
+    <div class="feed-element mb-2">
+        <strong>
+            <a href="@Url.Action("AssetWork", "Bids", new { Id = p.AssetWorksBidQuoteId })">@p.AssetWorksBidQuoteId</a>
+        </strong>
+        <div>
+            <small>
+                <strong>
+                    Total Parts:
+                </strong> @p.AssetWorksPartCount
+            </small>
+        </div>
+        <div>
+            <small>
+                <strong>No CC:</strong> @p.AssetWorksPartCountWithNoCC | <strong>No Match:</strong> @p.AssetWorksNoVendorCCMatch | <strong>No Email:</strong> @p.AssetWorksVendorsNoEmail
+            </small>
+        </div>
+        <div>
+            <small>
+                <strong>Created:</strong> @($"{p.AssetWorksDateInserted:g}")
+            </small>
+        </div>
+    </div>
+    }
+</div>

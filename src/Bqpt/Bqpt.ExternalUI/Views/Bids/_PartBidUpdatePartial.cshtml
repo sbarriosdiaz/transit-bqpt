@@ -1,0 +1,139 @@
+﻿@model VendorPartBidViewModel
+
+<div id="js-pnl-helper">
+    @using (Html.BeginForm("UpdateBid", "Bids", FormMethod.Post, new { @id = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.DomainKey)
+        @Html.HiddenFor(model => model.BidQuoteDomainKey)
+
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                @Html.LabelFor(model => model.AssetWorksPartNumber)
+                @Html.TextBoxFor(model => model.AssetWorksPartNumber, null, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.AssetWorksPartNumber, null, new { @class = "text-validation" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.RequestedQuantity)
+                @Html.TextBoxFor(model => model.RequestedQuantity, null, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.RequestedQuantity, null, new { @class = "text-validation" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.AssetWorksPartDescription)
+                @Html.TextBoxFor(model => model.AssetWorksPartDescription, null, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.AssetWorksPartDescription, null, new { @class = "text-validation" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.EstimateDeliveryDate, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.EstimateDeliveryDate, new
+                {
+                    htmlAttributes = new
+                    {
+                        @id = "EstimateDeliveryDate",
+
+                        @placeholder = "Select Date",
+                        @required = "true",
+                        @type = "date"
+                    }
+                })
+                @Html.ValidationMessageFor(model => model.EstimateDeliveryDate, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Core)
+                @Html.TextBoxFor(model => model.Core, null, new { @class = "form-control usd_input", @type = "number", @min = "0.00", @max = "999999.99", @step = "0.01", @placeholder = "0.00" })
+                @Html.ValidationMessageFor(model => model.Core, null, new { @class = "text-validation" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.UnitPrice)
+                @Html.TextBoxFor(model => model.UnitPrice, null, new { @class = "form-control usd_input", @type = "number", @min = "0.00", @max = "999999.99", @step = "0.01", @placeholder = "0.00" })
+                @Html.ValidationMessageFor(model => model.UnitPrice, null, new { @class = "text-validation" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.QuantityAvailable)
+                @Html.TextBoxFor(model => model.QuantityAvailable, null, new
+                {
+                    @class = "form-control",
+                    @type = "text",
+                    @inputmode = "numeric",
+                    @min = "0",
+                    @step = "1",
+                    @maxlength = "5"
+                })
+                @Html.ValidationMessageFor(model => model.QuantityAvailable, null, new { @class = "text-validation" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.ItemsPerUnit)
+                @Html.TextBoxFor(model => model.ItemsPerUnit, null, new
+                {
+                    @class = "form-control",
+                    @type = "text",
+                    @inputmode = "numeric",
+                    @min = "0",
+                    @step = "1",
+                    @maxlength = "5"
+                })
+                @Html.ValidationMessageFor(model => model.ItemsPerUnit, null, new { @class = "text-validation" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comment)
+            @Html.TextBoxFor(model => model.Comment, null, new { @class = "form-control", @maxlength = "101" })
+            @Html.ValidationMessageFor(model => model.Comment, null, new { @class = "text-validation" })
+        </div>
+        <div class="form-group">
+            <button id="js-btn-validationsubmit" type="submit" class="btn btn-primary" onclick="vendor.UpdateBid()">
+                Update Bid
+            </button>
+        </div>
+    }
+</div>
+<div id="js-pnl-validationresultmessage" class="d-none"></div>
+
+<div id="js-pnl-validationresultmessage" class="d-none"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fields = [
+            document.querySelector("input[name='QuantityAvailable']"),
+            document.querySelector("input[name='ItemsPerUnit']")
+        ];
+
+        fields.forEach(input => {
+            if (!input) return;
+
+            // Keydown: block anything that's not a digit, decimal point, or valid control keys
+            input.addEventListener("keydown", function (e) {
+                const isCtrlCmd = e.ctrlKey || e.metaKey;
+                const allowedKeys = [
+                    'Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete', 'Home', 'End'
+                ];
+
+                // Block the + symbol specifically
+                if (e.key === "+" ||
+                    allowedKeys.includes(e.key) ||
+                    (isCtrlCmd && ['a', 'c', 'v', 'x'].includes(e.key.toLowerCase()))) {
+                    e.preventDefault();
+                    return;
+                }
+
+                // Block anything that's not a digit or decimal point
+                if (!/^\d$/.test(e.key) && e.key !== ".") {
+                    e.preventDefault();
+                }
+            });
+
+            // Input: remove non-digit characters (handles paste)
+            input.addEventListener("input", function () {
+                // Remove non-numeric characters and block the + symbol
+                this.value = this.value.replace(/[^0-9.]/g, '');
+            });
+        });
+    });
+</script>

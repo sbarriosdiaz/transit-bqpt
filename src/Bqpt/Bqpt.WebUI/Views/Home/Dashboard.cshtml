@@ -1,0 +1,78 @@
+﻿@model BidQuoteDashboardResponseDto
+
+@{
+    /**/
+
+    ViewBag.Title = "Dashboard";
+    ViewBag.PageTitle = Html.Raw("<span class='fas fa-tachometer-alt mr-1'></span>Dashboard - Transit Bid Quote Tool");
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="ibox">
+            <div class="ibox-content ibox-heading">
+                <h3><i class="fas fa-project-diagram mr-1" aria-hidden="true"></i>AssetWorks</h3>
+                <h5><i class="fa fa-tim mr-1" aria-hidden="true"></i> AssetWorks (Open)</h5>
+                <small><i class="fa fa-tim mr-1" aria-hidden="true"></i> Latest @(Model.AssetWorksBidQuotes.Count()) Bids</small>
+            </div>
+
+            <div class="ibox-content">
+                <div class="feed-activity-list">
+                    @if (Model.AssetWorksBidQuotes.Any())
+                    {
+                        @Html.Partial("_AssetWorkBidQuotesPartial", Model.AssetWorksBidQuotes)
+                    }
+                    else
+                    {
+                        <div class="feed-element mb-2">No Bids at this time</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="ibox">
+            <div class="ibox-content ibox-heading">
+                <h3><i class="fas fa-project-diagram mr-1" aria-hidden="true"></i>System Bids</h3>
+                <h5><i class="fa fa-tim mr-1" aria-hidden="true"></i> System Bids (New, Open)</h5>
+                <small><i class="fa fa-tim mr-1" aria-hidden="true"></i> Latest @(Model.OpenBidQuotes.Count())  Bids</small>
+            </div>
+            <div class="ibox-content">
+                <div class="feed-activity-list">
+                    @if (Model.OpenBidQuotes.Any())
+                    {
+                        @Html.Partial("_BidQuotesPartial", Model.OpenBidQuotes)
+                    }
+                    else
+                    {
+                        <div class="feed-element mb-2">No Bids at this time</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="ibox">
+            <div class="ibox-content ibox-heading">
+                <h3><i class="fas fa-project-diagram mr-1" aria-hidden="true"></i>Closed</h3>
+                <h5><i class="fa fa-tim mr-1" aria-hidden="true"></i> System Bids (Closed, Expired, Ended)</h5>
+                <small><i class="fa fa-tim mr-1" aria-hidden="true"></i> Latest @(Model.ClosedBidQuotes.Count()) Bids</small>
+            </div>
+            <div class="ibox-content">
+                <div class="feed-activity-list">
+                    @if (Model.ClosedBidQuotes.Any())
+                    {
+                        @Html.Partial("_BidQuotesPartial", Model.ClosedBidQuotes)
+                    }
+                    else
+                    {
+                        <div class="feed-element mb-2">No Bids at this time</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

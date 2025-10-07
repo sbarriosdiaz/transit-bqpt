@@ -1,0 +1,10 @@
+﻿@model VendorBidQuoteAttachmentResponseDto
+
+<div id="js-pnl-attachment-manager">
+    <div id="js-pnl-attachmentform">
+        @Html.Partial("_VendorBidQuoteAttachmentPartial", Model.VendorBidQuoteAttachmentForm)
+    </div>
+    <div id="js-pnl-attachments">
+        @Html.Partial("_VendorBidQuoteAttachmentsPartial", Model.VendorBidQuoteAttachments)
+    </div>
+</div>

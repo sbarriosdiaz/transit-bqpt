@@ -1,0 +1,24 @@
+﻿<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <img src="~/Content/template-support/images/template-logo.png" class="m-b-md img-fluid img-circle" alt="Welcome to Application @ViewBag.ApplicationName" />
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li>
+                            <a href="@Url.Action("LogOff", "Account")">
+                                <span class="fas fa-sign-out mr-1" aria-hidden="true"></span>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    BC
+                </div>
+            </li>
+            <li class="@Html.IsSelected(controller: "Bids", action: "Index") @Html.IsSelected(controller: "bids", action: "Index")">
+                <a href="@Url.Action("Index", "Bids")"><span class="fas fa-tachometer-alt mr-1 d-inline" aria-hidden="true"></span><span class="nav-label ">Dashboard</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>

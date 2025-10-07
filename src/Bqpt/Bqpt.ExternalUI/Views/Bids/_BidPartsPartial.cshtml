@@ -1,0 +1,103 @@
+﻿@model BidQuoteDto
+
+@{
+    var row = 0;
+    var bidQuote = Model;
+    var bidParts = Model.Parts;
+}
+
+<table class="table table-bordered" aria-label="VendorBids" id="dt-vendorbids">
+    <thead class="bg-light">
+        <tr>
+            <th scope="col" class="w-auto text-center">
+                #
+            </th>
+            <th scope="col" class="align-bottom w-auto text-nowrap" title="Part Number">
+                Part-No
+            </th>
+            <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Part Description">
+                Description
+            </th>
+            <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Quantity Requested">
+                Req Qty
+            </th>
+            <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Estimated Delivery Date">
+                Delivery
+            </th>
+            <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Unit Quantity">
+                Unit Qty
+            </th>
+            <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Items Per Unit">
+                Items Per Unit
+            </th>
+            <th scope="col" class="align-bottom w-auto  d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Unit Price">
+                Unit Price
+            </th>
+            <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Core">
+                Core Charge
+            </th>
+            <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Comment">
+                Comment
+            </th>
+            @if (bidQuote.Status.ParseEnum<BidQuoteStatus>() == BidQuoteStatus.Open)
+            {
+                <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Actions">
+                    Actions
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody class="align-text-bottom">
+        @foreach (var p in bidParts)
+        {
+            row++;
+        <tr>
+            <td class="align-middle text-nowrap text-center">@(row)</td>
+            <td class="align-middle text-nowrap">@(p.AssetWorksPartNumber)</td>
+            <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(p.AssetWorksPartDescription)</td>
+            <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(p?.RequestedQuantity)</td>
+            <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@($"{p?.VendorBid?.EstimateDeliveryDate:d}")</td>
+            <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(p?.VendorBid?.QuantityAvailable)</td>
+            <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(p?.VendorBid?.ItemsPerUnit)</td>
+            <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(p?.VendorBid?.UnitPrice)</td>
+            <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(p?.VendorBid?.Core)</td>
+            <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="@(p?.VendorBid?.Comment)">@(p?.VendorBid?.Comment)</td>
+            @if (bidQuote.Status.ParseEnum<BidQuoteStatus>() == BidQuoteStatus.Open)
+            {
+                <td class="text-right">
+
+                    <div data-id="bidPart-@p.Id" class="dropdown">
+                        <button class="btn btn-default btn-sm dropdown-toggle btn-labeled" type="button" data-toggle="dropdown">
+                            <span class="btn-label"><em class="fas fa-cogs mr-1"></em></span>Actions
+                        </button>
+                        <ul class="dropdown-menu">
+                            @if (p.VendorBid is null)
+                            {
+                                <li>
+                                    <a href="#" onclick="vendor.OpenAddBid(`@(p.VendorInPart.DomainKey)`)">
+                                        <em class="far fa-file mr-1"></em> Add Bid
+                                    </a>
+                                </li>
+                            }
+
+                            @if (p.VendorBid != null)
+                            {
+                                <li>
+                                    <a href="#" onclick="vendor.OpenUpdateBid(`@(p.VendorBid.DomainKey)`)">
+                                        <em class="fa fa-edit mr-1"></em> Update Bid
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="vendor.OpenDeleteBid(`@(p.VendorBid.DomainKey)`)">
+                                        <em class="fas fa-trash-alt mr-1"></em> Delete Bid
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

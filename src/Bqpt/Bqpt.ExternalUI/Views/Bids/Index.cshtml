@@ -1,0 +1,78 @@
+﻿@model VendorDashboardResponseDto
+
+@{
+    var bidQuotes = Model?.BidQuotes;
+    var vendor = Model?.Vendor;
+    ViewBag.Title = "Bid Quote";
+    ViewBag.PageTitle = Html.Raw("<span class='fas fa-tachometer-alt mr-1' aria-hidden='true'></span>Vendor Bids");
+    var row = 0;
+}
+@section scripts {
+    @Scripts.Render("~/bundles/dtjs")
+    <script>
+        $(function () {
+            helperApp.InitDtSimple('dt-vendorbids', '0', 'asc');
+        })
+    </script>
+}
+@section styles{
+
+    @Styles.Render("~/bundles/dtstyles")
+
+}
+
+<div class="ibox1">
+    <div class="ibox-title">
+        <h2 class="mb-0">@(vendor?.AssetWorksVendorName)</h2>
+    </div>
+    <div class="ibox-content table-responsive">
+        <table class="table table-bordered" aria-label="BidQuotes" id="dt-vendorbids">
+            <thead class="bg-light">
+                <tr>
+                    <th scope="col" class="w-auto text-center">
+                        #
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-nowrap" title="Bid Quote ID">
+                        BidQuote
+                    </th>
+                    <th scope="col" class="align-bottom w-auto text-nowrap" title="Bid Quote Status">
+                        Status
+                    </th>
+                    <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Bid Quote Parts">
+                        Parts
+                    </th>
+                    <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Bid Quote Part Bids">
+                        Bids
+                    </th>
+                    <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Bid Quote Part Bids Won">
+                        Bids-Won
+                    </th>
+                    <th scope="col" class="align-bottom w-auto d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell" title="Bid Quote Open Date">
+                        Open Date
+                    </th>
+                    <th scope="col" class="align-bottom w-auto" title="Bid Quote Close Date">
+                        Close Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="align-text-bottom">
+                @foreach (var bq in bidQuotes.OrderBy(x => x.StatusOrder))
+                {
+                    row++;
+                <tr class="@(bq.Status.Equals(nameof(BidQuoteStatus.Closed)) ? "bg-gray-200 text-danger font-bold" : bq.Status.Equals(nameof(BidQuoteStatus.Expired)) ? "bg-gray-50" : "")">
+                    <td class="align-middle text-center  text-nowrap">@(row)</td>
+                    <td class="align-middle text-nowrap">
+                        @Html.ActionLink((bq.AssetWorksBidQuoteId), "VendorBid", "Bids", new { id = bq.DomainKey }, new { @Title = "Export" })
+                    </td>
+                    <td class="align-middle font-bold">@(bq.Status)</td>
+                    <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(bq.VendorInPartCount)</td>
+                    <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(bq.VendorBidCount)</td>
+                    <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell">@(bq.VendorSelectedCount)</td>
+                    <td class="align-middle d-none d-sm-none d-md-none d-lg-table-cell d-xl-table-cell d-print-table-cell"> @($"{bq.BidStartTime:g}") </td>
+                    <td class="align-middle"> @($"{bq.BidEndTime:g}") </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

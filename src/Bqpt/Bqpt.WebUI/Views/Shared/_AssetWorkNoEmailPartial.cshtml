@@ -1,0 +1,38 @@
+﻿@model IEnumerable<VendorDto>
+
+@{
+    var Vendors = Model.Select(x => new { x.Id, x.AssetWorksVendorNumber, x.AssetWorksVendorName, x.AssetWorksVendorContactName }).OrderBy(x => x.AssetWorksVendorName).Distinct().ToList();
+
+}
+
+<div id="js-vendor-no-email-form">
+    <table class="table table-striped" aria-label="VendorNoEmails">
+        <thead>
+            <tr>
+                <th scope="col" class="w-auto" title="Asset Works Vendor Number">
+                    Number
+                </th>
+                <th scope="col" class="w-auto" title="Asset Works Vendor Name">
+                    Name
+                </th>
+                <th scope="col" class="w-auto" title="Asset Works Vendor Contact Name">
+                    Contact
+                </th>
+                <th scope="col" class="text-center w-auto" title="Asset Works Vendor Email">
+                    Email
+                </th>
+            </tr>
+        </thead>
+        <tbody class="align-text-bottom">
+            @foreach (var v in Vendors)
+            {
+            <tr>
+                <td style="max-width:50px">@(v.AssetWorksVendorNumber)</td>
+                <td>@(v.AssetWorksVendorName)</td>
+                <td>@(v.AssetWorksVendorContactName)</td>
+                <td class="text-center">N/A</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

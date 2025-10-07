@@ -1,0 +1,76 @@
+﻿@model IReadOnlyCollection<BidQuoteDto>
+
+<div id="js-pnl-bids" class="mt-3">
+    <table id="dt-bids" class="table table-bordered table-hover">
+        <caption>
+            <small>All Data: Bids in records.</small>
+        </caption>
+        <thead class="bg-light">
+            <tr>
+                <th scope="col">Asset Works Bid Quote ID</th>
+                <th scope="col">Total Parts</th>
+                <th scope="col">Total Bids</th>
+                <th scope="col">Status</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+            <tr>
+                <td>
+                    <div class="font-weight-bold mb-1">
+                        <strong>
+                            <a href="@Url.Action("BidQuotes", "Bids", new { Id = p.DomainKey })">@p.AssetWorksBidQuoteId</a>
+                        </strong>
+                    </div>
+                </td>
+                <td>
+                    @(p.PartCount)
+                </td>
+                <td class="text-center">
+                    @(p.VendorBidCount)
+                </td>
+                <td>
+                    @(p.Status)
+                </td>
+                <td>
+                    <div>
+                        @if (p.Status.Equals("New"))
+                            {
+                        <strong>Imported:</strong>  @($"{p.BidImportedTime:g}")
+
+                            }
+                        @if (p.Status.Equals("Open"))
+                            {
+
+                        <strong>Start:</strong>  @($"{p.BidStartTime:g}")
+                        <br />
+                        <strong> End:</strong>  @($"{p.BidScheduledEndTime:g}")
+
+                            }
+                        @if (p.Status.Equals("Expired"))
+                            {
+
+                        <strong>Expired:</strong>  @($"{p.BidScheduledEndTime:g}")
+
+                            }
+                        @if (p.Status.Equals("Ended"))
+                            {
+
+                        <strong>Ended:</strong>  @($"{p.BidEndTime:g}")
+
+                            }
+                        @if (p.Status.Equals("Closed"))
+                            {
+
+                        <strong>Closed:</strong>  @($"{p.BidClosedTime:g}")
+
+                            }
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

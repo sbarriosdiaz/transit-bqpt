@@ -1,0 +1,47 @@
+﻿@model VendorBidQuoteAttachmentViewModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info">
+            <h3>
+                Only PDF Files Allowed.
+            </h3>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("SaveInvoiceFile", "Bids", FormMethod.Post, new { id = "form-attachment" }))
+{
+@Html.AntiForgeryToken()
+
+<div class="form-group">
+    @Html.LabelFor(m => m.FileFriendlyName)
+    @Html.TextBoxFor(m => m.FileFriendlyName, null, new { @class = "form-control" })
+</div>
+<div class="form-group">
+
+    <label for="File">Choose file (Explore in local computer only PDF Files Allowed)</label>
+    <br />
+    <input type="file" name="File" id="File" />
+
+    @Html.ValidationMessageFor(m => m.File, null, new { @class = "text-validation" })
+</div>
+@Html.HiddenFor(m => m.BidQuoteId)
+@Html.HiddenFor(m => m.VendorId)
+
+<div class="d-none form-group" id="js-pnl-file-validation-error">
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger">
+                <h4>
+                    THIS IS NOT AN ALLOWED FILE EXTENSION TO UPLOAD / OR THIS FILE EXCEEDS THE ALLOWED SIZE OF 15MB!
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group" id="js-pnl-btn-submit-file">
+    <button id="js-btn-submitfile" class="btn btn-primary d-none" onclick="vendor.saveInvoiceFile()">
+        <span class="fas fa-upload mr-1"></span>Upload File
+    </button>
+    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+</div>
+}

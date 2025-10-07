@@ -1,0 +1,70 @@
+﻿@model ICollection<VendorBidQuoteAttachmentDto>
+
+<div class="row">
+    <div class="col">
+        <div class="alert alert-info">
+            Allow File System to scan file, uploaded file will show after the process finish.
+            <div>
+                <h4>
+                    Please refresh the page to check if the scanning is complete and determine if you need to delete the file.
+                </h4>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover table-condensed" id="dt-attachments">
+            <caption>
+                <small>
+                    All Data: Invoice
+                </small>
+            </caption>
+            <thead class="bg-light">
+                <tr>
+                    <th scope="col">FILE</th>
+                    <th scope="col">STATUS</th>
+                    <th scope="col">DATE</th>
+                    <th scope="col">SIZE</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var file in Model)
+                    {
+                <tr>
+                    <td>
+
+
+                        @if (file.Status.ParseEnum<AttachmentStatus>() == AttachmentStatus.Active)
+                        {
+                            <a href="#" role="button" class="btn btn-danger btn-xs" onclick="vendor.deleteInvoice(`@file.AttachmentId`, `@file.BidQuoteId`)">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                            </a>
+                            <a href="@Url.Action("Files", "Bids", new { id = file.AttachmentId })" rel="nofollow noreferrer" target="_blank">
+                                @file.FileFriendlyName (@file.FileExtension)
+                            </a>
+                        }
+                        else
+                        {
+                            <span>
+                                @file.FileFriendlyName (@file.FileExtension)
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @file.Status
+                    </td>
+
+                    <td>@file.CreatedOn</td>
+                    <td>@file.FileSize.ToFileSize()</td>
+                </tr>
+                    }
+                }
+                else
+                {
+                <tr>
+                    <td colspan="4">No attachment in records...</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

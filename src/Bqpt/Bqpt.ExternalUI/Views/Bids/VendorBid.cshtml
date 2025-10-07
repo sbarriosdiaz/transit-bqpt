@@ -1,0 +1,103 @@
+﻿@model BidQuoteDto
+
+@{
+    ViewBag.Title = "Vendor Bid";
+    ViewBag.PageTitle = Html.Raw("Bid Quote Details");
+    var bidQuote = Model;
+}
+@section scripts {
+    @Scripts.Render("~/bundles/dtjs")
+    <script>
+        $(function () {
+
+            helperApp.InitDtSimple('dt-vendorbids','0', 'asc');
+            let countDownDate = new Date('@($"{bidQuote.BidScheduledEndTime:g}")').getTime();
+            setInterval(function () {
+                let now = new Date().getTime();
+                let distance = countDownDate - now;
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                $('#js-lbl-timer').html(`COUNTDOWN TIMER: ${days} d ${hours} h ${minutes} m ${seconds} s`)
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    $('#js-lbl-timer').html('EXPIRED');
+                }
+
+            }, 1000);
+        })
+    </script>
+}
+@section styles{
+    @Styles.Render("~/bundles/dtstyles")
+}
+@if (bidQuote != null)
+{
+@Html.HiddenFor(m => m.VendorId)
+@Html.HiddenFor(m => m.DomainKey)
+<div class="row">
+    <div class="col-10">
+        <a role="button" href="@Url.Action("Index", "Bids")" class="btn btn-default applicationLinkBtn" type="button" data-toggle="tooltip" data-placement="top" title="Return to Bids">
+            <span class="fas fa-reply fa-fw fa-3x"></span>
+            <br />
+            <h4>
+                Back to Bids
+            </h4>
+        </a>
+
+        <a id="js-btn-invoice-uploader" role="button" href="#" class="btn btn-default applicationLinkBtn @(!bidQuote.CanUploadInvoice ? "d-none" : "js-uploader")" type="button" data-toggle="tooltip" data-placement="top" title="Upload Bid Invoice" onclick="vendor.loadUploadInvoiceUi(`@bidQuote.DomainKey`)">
+            <span class="fas fa-file-upload fa-fw fa-3x"></span>
+            <br />
+            <h4>
+                Upload Quote
+            </h4>
+        </a>
+    </div>
+</div>
+<div class="ibox">
+    <div class="ibox-title">
+        <h2 class="mb-2" title="BQId @(bidQuote.Id)">@(bidQuote.AssetWorksBidQuoteId) </h2>
+
+        <div class="mb-1">
+            <strong>Status: </strong>@bidQuote.Status
+        </div>
+
+        @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Open)) || bidQuote.Status.Equals(nameof(BidQuoteStatus.Expired)))
+            {
+        <div>
+            <strong>Start:</strong> @($"{bidQuote.BidStartTime:g}") <br />
+            <strong>End:</strong> @($"{bidQuote.BidScheduledEndTime:g}")
+        </div>
+            }
+        @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Ended)))
+            {
+        <div><strong>Ended:</strong> @($"{bidQuote.BidEndTime:g}")</div>
+            }
+        @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Closed)))
+            {
+        <div>
+            <strong>Closed:</strong> @($"{bidQuote.BidClosedTime:g}")
+        </div>
+
+            }
+
+        <div class="ibox-tools">
+            <span class="d-print-none">
+                @if (bidQuote.Status.Equals(nameof(BidQuoteStatus.Open)))
+                    {
+                <span id="js-lbl-timer" class="badge badge-primary" title="Total Parts"></span>
+                    }
+            </span>
+        </div>
+    </div>
+
+    <div class="ibox-content" id="js-pnl-parts">
+
+        @Html.Partial("_BidPartsPartial", bidQuote)
+    </div>
+</div>
+
+}

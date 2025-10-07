@@ -1,0 +1,23 @@
+﻿@model BidQuoteViewModel
+
+<div id="js-pnl-helper">
+    @using (Html.BeginForm("EndBidQuote", "Bids", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.AssetWorksBidQuoteId)
+        @Html.TextBoxFor(m => m.AssetWorksBidQuoteId, null, new { @class = "form-control", @readonly = "readonly" })
+        @Html.ValidationMessageFor(m => m.AssetWorksBidQuoteId, null, new { @class = "text-validation" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">End Bid</button>
+    </div>
+    }
+</div>
+<div id="js-pnl-validationresultmessage" class="d-none"></div>
+
+<script type="text/javascript">
+    $('form').submit(function (e) {
+        helperApp.BlockUI('js-pnl-helper');
+    })
+</script>
